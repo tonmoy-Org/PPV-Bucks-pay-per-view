@@ -46,7 +46,7 @@ function getNumber($length = 8)
 
 function sysInfo()
 {
-    $system['name'] = 'ClickBucks';
+    $system['name'] = 'PPV Bucks';
     $system['version'] = '1.0.0';
     $system['build_version'] = '1.1.3';
     $system['admin_version'] = '10.2.0';
