@@ -1,0 +1,435 @@
+/* ==========================================================
+   Professional Plan & High-Converting Pricing Styling
+   ========================================================== */
+
+.plan-section {
+    position: relative;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    padding: 90px 0;
+}
+
+.pricing-top-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 18px;
+    background: rgba(var(--base), 0.12);
+    color: hsl(var(--base-d-300, 211 100% 40%));
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.plan-card-pro {
+    position: relative;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+    padding: 32px 18px;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.plan-card-pro:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+    border-color: rgba(var(--base), 0.5) !important;
+}
+
+.plan-card-pro.featured-plan {
+    border: 2px solid hsl(var(--base)) !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.09);
+    transform: scale(1.02);
+}
+
+.plan-card-pro.featured-plan:hover {
+    transform: scale(1.04) translateY(-6px);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, hsl(var(--base)), hsl(var(--base-d-200)));
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 5px 20px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+}
+
+.plan-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(var(--base), 0.1);
+    color: hsl(var(--base));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.price-box {
+    margin: 20px 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 3px;
+}
+
+.price-currency {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+.price-amount {
+    font-size: 3.25rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #0f172a;
+    letter-spacing: -1px;
+}
+
+.price-cents {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.price-period {
+    display: block;
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.plan-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 32px 0;
+    text-align: left;
+}
+
+.plan-features-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.925rem;
+    color: #334155;
+    padding: 10px 0;
+    border-bottom: 1px dashed #f1f5f9;
+}
+
+.plan-features-list li:last-child {
+    border-bottom: none;
+}
+
+.feature-check-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.feature-cross-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fee2e2;
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.btn-plan-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.btn-plan-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================
+   High-Converting Upgrade & Urgency Styling
+   ========================================================== */
+
+.plan-promo-banner {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    border-radius: 18px;
+    padding: 20px 28px;
+    margin-bottom: 45px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.promo-badge {
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { transform: scale(1.04); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.timer-box {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fbbf24;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+/* Plan Calculator Card */
+.calculator-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+    padding: 32px;
+    margin-bottom: 50px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.02);
+}
+
+.calc-slider-input {
+    width: 100%;
+    accent-color: hsl(var(--base));
+    height: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Social Proof Popup Toast */
+.social-proof-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 5px solid hsl(var(--base));
+    border-radius: 16px;
+    padding: 14px 20px;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(140px);
+    opacity: 0;
+    max-width: 360px;
+}
+
+.social-proof-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.social-proof-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(var(--base), 0.15);
+    color: hsl(var(--base));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* ==========================================================
+   Ultra High-Contrast Feature Comparison Table
+   ========================================================== */
+
+.comparison-table-wrapper {
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    border: 1px solid #cbd5e1 !important;
+    overflow: hidden !important;
+    margin-top: 60px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+}
+
+.comparison-table-wrapper .card-header-bar {
+    background: #ffffff !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+}
+
+.comparison-table {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-collapse: collapse !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+}
+
+.comparison-table > :not(caption) > * > * {
+    background-color: transparent !important;
+}
+
+.comparison-table thead tr {
+    background: #0f172a !important;
+}
+
+.comparison-table thead th {
+    background: #0f172a !important;
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    padding: 18px 20px !important;
+    border-bottom: 2px solid #334155 !important;
+    vertical-align: middle !important;
+}
+
+.comparison-table thead th.popular-col-head {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+.comparison-table tbody tr {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.comparison-table tbody tr:nth-child(even) {
+    background-color: #f8fafc !important;
+}
+
+.comparison-table tbody tr:hover {
+    background-color: #f1f5f9 !important;
+}
+
+.comparison-table tbody td {
+    padding: 18px 20px !important;
+    vertical-align: middle !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #0f172a !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.comparison-table tbody td.popular-col-cell {
+    background-color: #eff6ff !important;
+    color: #1e40af !important;
+    font-weight: 700 !important;
+    border-left: 2px solid #60a5fa !important;
+    border-right: 2px solid #60a5fa !important;
+}
+
+.comparison-table .feature-title {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+}
+
+.comparison-table .text-highlight-green {
+    color: #166534 !important;
+    font-weight: 700 !important;
+}
+
+.comparison-table .text-highlight-blue {
+    color: #1d4ed8 !important;
+    font-weight: 700 !important;
+}
+
+.comparison-table .text-highlight-amber {
+    color: #d97706 !important;
+    font-weight: 700 !important;
+}
+
+/* Trust Badges Bar */
+.trust-badges-wrapper {
+    margin-top: 60px;
+    padding: 32px 24px;
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.02) !important;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 12px;
+}
+
+.trust-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(var(--base), 0.12);
+    color: hsl(var(--base));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.trust-text h6 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: #0f172a;
+}
+
+.trust-text p {
+    font-size: 0.825rem;
+    color: #64748b;
+    margin: 0;
+}

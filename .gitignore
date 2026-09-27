@@ -1,0 +1,20 @@
+# Dependencies
+Files/application/vendor/
+Files/application/node_modules/
+Files/application/public/storage
+
+# Laravel storage logs & cache
+Files/application/storage/logs/*
+!Files/application/storage/logs/.gitkeep
+Files/application/storage/framework/cache/*
+!Files/application/storage/framework/cache/.gitkeep
+Files/application/storage/framework/sessions/*
+!Files/application/storage/framework/sessions/.gitkeep
+Files/application/storage/framework/views/*
+!Files/application/storage/framework/views/.gitkeep
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
