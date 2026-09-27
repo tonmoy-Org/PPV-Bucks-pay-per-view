@@ -170,16 +170,17 @@
                 </ul>
             </div>
         </div>
-        <div class="sidebar-support-box d-grid align-items-center bg-img"
+        <div class="sidebar-support-box bg-img"
+        style="height: auto !important; min-height: 220px; padding: 18px; margin: 10px 10px 20px 10px;"
         data-background="{{ asset($activeTemplateTrue . 'images/element/sidebar-bg.png') }}">
-        <div class="sidebar-support-icon">
-            <i class="fas fa-question-circle"></i>
+        <div class="sidebar-support-icon mb-2">
+            <i class="fas fa-crown text-warning"></i>
         </div>
         <div class="sidebar-support-content">
-            <h4 class="title">@lang('Need Help')?</h4>
-            <p>@lang('Please contact our support').</p>
+            <h4 class="title" style="font-size: 18px; font-weight: 700;">@lang('Upgrade Plan')</h4>
+            <p style="font-size: 13px; margin-bottom: 12px; line-height: 1.4;">@lang('Upgrade your plan to post more advertisements').</p>
             <div class="sidebar-support-btn">
-                <a href="{{route('advertiser.ticket.open')}}" class="btn btn--base w-100 mt-2">@lang('Get Support')</a>
+                <a href="{{route('advertiser.plan')}}" class="btn btn--base w-100 py-2" style="font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.15);"><i class="fas fa-rocket me-1"></i> @lang('Upgrade Plan')</a>
             </div>
         </div>
     </div>

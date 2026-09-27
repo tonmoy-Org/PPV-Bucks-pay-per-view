@@ -14,6 +14,11 @@ class Ptc extends Model
         return $this->belongsTo(Advertiser::class,'user_id');
     }
 
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class, 'plan_id');
+    }
+
     public function statusBadge($status){
         $html = '';
         if($this->status == 1){

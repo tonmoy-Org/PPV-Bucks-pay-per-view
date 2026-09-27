@@ -46,11 +46,37 @@ class PtcController extends Controller
         return (int) ($ptc->duration ?? 10);
     }
 
+    protected function getUserPlanId($user)
+    {
+        if ($user && $user->plan_id) {
+            return (int) $user->plan_id;
+        }
+        $freePlan = \App\Models\Plan::where('status', 1)->where('price', 0)->first();
+        if ($freePlan) {
+            return (int) $freePlan->id;
+        }
+        return 0;
+    }
+
     public function index(){
 
         $pageTitle      = 'Ads List';
         $user           = auth()->user();
-        $ads            = Ptc::where('status',1)->where('remain','>',0)->inRandomOrder()->orderBy('remain','desc')->limit(100)->get();
+        $userPlanId     = $this->getUserPlanId($user);
+
+        $ads            = Ptc::where('status',1)
+                            ->where('remain','>',0)
+                            ->where(function($q) use ($userPlanId) {
+                                $q->where('plan_id', 0)->orWhereNull('plan_id');
+                                if ($userPlanId) {
+                                    $q->orWhere('plan_id', $userPlanId);
+                                }
+                            })
+                            ->inRandomOrder()
+                            ->orderBy('remain','desc')
+                            ->limit(100)
+                            ->get();
+
         $resetHours     = (int) (gs()->ad_reset_hours ?? 12);
         $resetTime      = now()->subHours($resetHours);
         $viewAds        = PtcView::where('user_id', $user->id)->where('created_at', '>=', $resetTime)->get();
@@ -76,7 +102,15 @@ class PtcController extends Controller
 
         $resetHours = (int) (gs()->ad_reset_hours ?? 12);
         $resetTime  = now()->subHours($resetHours);
-        $ptc        = Ptc::where('id',$id)->where('remain','>',0)->where('status',1)->firstOrFail();
+        $ptc        = Ptc::with('plan')->where('id',$id)->where('remain','>',0)->where('status',1)->firstOrFail();
+
+        $userPlanId = $this->getUserPlanId($user);
+        if ($ptc->plan_id > 0 && $ptc->plan_id != $userPlanId) {
+            $planName = $ptc->plan ? $ptc->plan->name : 'selected';
+            $notify[] = ['error', "This advertisement is only available for users of the {$planName} plan."];
+            return redirect()->route('user.ptc.index')->withNotify($notify);
+        }
+
         $viewAds    = PtcView::where('user_id',$user->id)->where('created_at', '>=', $resetTime)->get();
         $dailyLimit = $this->getDailyAdLimit($user);
 
@@ -118,7 +152,14 @@ class PtcController extends Controller
 
         $resetHours = (int) (gs()->ad_reset_hours ?? 12);
         $resetTime  = now()->subHours($resetHours);
-        $ptc = Ptc::where('id',$id)->where('remain','>',0)->where('status',1)->firstOrFail();
+        $ptc = Ptc::with('plan')->where('id',$id)->where('remain','>',0)->where('status',1)->firstOrFail();
+
+        $userPlanId = $this->getUserPlanId($user);
+        if ($ptc->plan_id > 0 && $ptc->plan_id != $userPlanId) {
+            $planName = $ptc->plan ? $ptc->plan->name : 'selected';
+            $notify[] = ['error', "This advertisement is only available for users of the {$planName} plan."];
+            return redirect()->route('user.ptc.index')->withNotify($notify);
+        }
         $viewAds = PtcView::where('user_id',$user->id)->where('created_at', '>=', $resetTime)->get();
         $dailyLimit = $this->getDailyAdLimit($user);
 

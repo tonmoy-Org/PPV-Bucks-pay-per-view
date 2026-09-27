@@ -34,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         try {
+            if (!\Illuminate\Support\Facades\Schema::hasColumn('ptcs', 'plan_id')) {
+                \Illuminate\Support\Facades\Schema::table('ptcs', function ($table) {
+                    $table->integer('plan_id')->default(0)->after('user_id');
+                });
+            }
             if (!\Illuminate\Support\Facades\Schema::hasColumn('users', 'plan_id')) {
                 \Illuminate\Support\Facades\Schema::table('users', function ($table) {
                     $table->integer('plan_id')->default(0);

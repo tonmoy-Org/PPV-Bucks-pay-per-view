@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Advertiser;
 
 use App\Models\Ptc;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Rules\FileTypeValidate;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ class PtcManageController extends Controller
     {
         $pageTitle = 'List Advertisements';
         $user = authAdvertiser();
-        $ptcs = Ptc::where('user_id', $user->id)->latest()->paginate(getPaginate());
+        $ptcs = Ptc::with('plan')->where('user_id', $user->id)->latest()->paginate(getPaginate());
         return view($this->activeTemplate.'advertiser.ptc.index', compact('ptcs', 'pageTitle'));
     }
 
@@ -30,7 +31,8 @@ class PtcManageController extends Controller
     public function create()
     {
         $pageTitle = 'Create Ads';
-        return view($this->activeTemplate.'advertiser.ptc.create', compact('pageTitle'));
+        $plans = Plan::all();
+        return view($this->activeTemplate.'advertiser.ptc.create', compact('pageTitle', 'plans'));
     }
 
     public function store(Request $request)
@@ -48,6 +50,7 @@ class PtcManageController extends Controller
             'title'         =>  'required',
             'duration'      =>  'required|numeric|min:1',
             'max_show'      =>  'required|numeric|min:1',
+            'plan_id'       =>  'nullable|integer',
             'website_link'  =>  'nullable|url|required_without_all:image,script',
             'image'         => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
             'script'        =>  'nullable|required_without_all:image,website_link',
@@ -61,6 +64,7 @@ class PtcManageController extends Controller
         $ptc->max_show  =   $request->max_show;
         $ptc->remain   =   $request->max_show;
         $ptc->ads_type =   $request->ads_type;
+        $ptc->plan_id  =   $request->plan_id ?? 0;
         $ptc->status = gs()->ad_approve == 1 ?? 0;
 
         if ($ptc->ads_type == 1) {
@@ -92,8 +96,9 @@ class PtcManageController extends Controller
     {
         $pageTitle  = 'Update Advertisement';
         $ptc = Ptc::findOrFail($id);
+        $plans = Plan::all();
 
-        return view($this->activeTemplate.'advertiser.ptc.edit', compact('ptc', 'pageTitle'));
+        return view($this->activeTemplate.'advertiser.ptc.edit', compact('ptc', 'pageTitle', 'plans'));
     }
 
     public function update(Request $request, $id)
@@ -103,6 +108,7 @@ class PtcManageController extends Controller
             'title'         =>  'required',
             'duration'      =>  'required|numeric|min:1',
             'max_show'      =>  'required|numeric|min:1',
+            'plan_id'       =>  'nullable|integer',
         ]);
 
         $ptc = Ptc::findOrFail($id);
@@ -111,6 +117,7 @@ class PtcManageController extends Controller
         $ptc->max_show  =   $request->max_show;
         $ptc->remain =   $request->max_show - $ptc->showed;
         $ptc->ads_type =   $request->ads_type;
+        $ptc->plan_id =   $request->plan_id ?? 0;
 
         if ($ptc->ads_type == 1) {
             $ptc->ads_body  =   $request->website_link;
@@ -136,7 +143,7 @@ class PtcManageController extends Controller
 
     public function getPtc($status, $pageTitle){
         $user = authAdvertiser();
-        $ptcs = Ptc::where('status', $status)
+        $ptcs = Ptc::with('plan')->where('status', $status)
                        ->where('user_id',$user->id)
                        ->latest()
                        ->paginate(getPaginate(12));

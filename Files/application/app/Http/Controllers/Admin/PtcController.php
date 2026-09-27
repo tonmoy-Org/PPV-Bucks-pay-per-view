@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Ptc;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Rules\FileTypeValidate;
 use App\Http\Controllers\Controller;
@@ -12,7 +13,7 @@ class PtcController extends Controller
     public function index()
     {
         $pageTitle = 'List Advertisement';
-        $ptcs = Ptc::with('user')->latest()->paginate(getPaginate());
+        $ptcs = Ptc::with(['user', 'plan'])->latest()->paginate(getPaginate());
         return view('admin.ptc.index', compact('ptcs', 'pageTitle'));
     }
 
@@ -29,7 +30,8 @@ class PtcController extends Controller
     public function create()
     {
         $pageTitle = 'Add Advertisement';
-        return view('admin.ptc.create', compact('pageTitle'));
+        $plans = Plan::all();
+        return view('admin.ptc.create', compact('pageTitle', 'plans'));
     }
 
     public function store(Request $request)
@@ -38,6 +40,7 @@ class PtcController extends Controller
             'title'         =>  'required',
             'duration'      =>  'required|numeric|min:1',
             'max_show'      =>  'required|numeric|min:1',
+            'plan_id'       =>  'nullable|integer',
             'website_link'  =>  'nullable|url|required_without_all:image,script',
             'image'         => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
             'script'        =>  'nullable|required_without_all:image,website_link',
@@ -49,6 +52,7 @@ class PtcController extends Controller
         $ptc->max_show  =   $request->max_show;
         $ptc->remain   =   $request->max_show;
         $ptc->ads_type =   $request->ads_type;
+        $ptc->plan_id  =   $request->plan_id ?? 0;
         $ptc->status  =  1;
 
         if ($ptc->ads_type == 1) {
@@ -76,8 +80,9 @@ class PtcController extends Controller
     {
         $pageTitle  = 'Update Advertisement';
         $ptc = Ptc::findOrFail($id);
+        $plans = Plan::all();
 
-        return view('admin.ptc.update', compact('ptc', 'pageTitle'));
+        return view('admin.ptc.update', compact('ptc', 'pageTitle', 'plans'));
     }
 
     public function update(Request $request, $id)
@@ -87,6 +92,7 @@ class PtcController extends Controller
             'title'         =>  'required',
             'duration'      =>  'required|numeric|min:1',
             'max_show'      =>  'required|numeric|min:1',
+            'plan_id'       =>  'nullable|integer',
         ]);
 
         $ptc = Ptc::findOrFail($id);
@@ -95,6 +101,7 @@ class PtcController extends Controller
         $ptc->max_show  =   $request->max_show;
         $ptc->remain =   $request->max_show - $ptc->showed;
         $ptc->ads_type =   $request->ads_type;
+        $ptc->plan_id =   $request->plan_id ?? 0;
         $ptc->status =   isset($request->status) ? 1 : 0;
 
         if ($ptc->ads_type == 1) {
@@ -131,7 +138,7 @@ class PtcController extends Controller
 
     public function getPtc($status, $pageTitle){
         $ptcs = Ptc::where('status', $status)
-                       ->with(['user'])
+                       ->with(['user', 'plan'])
                        ->latest()
                        ->paginate(getPaginate(12));
         return view('admin.ptc.index', compact('ptcs', 'pageTitle'));

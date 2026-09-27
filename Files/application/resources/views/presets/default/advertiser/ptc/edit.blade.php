@@ -11,13 +11,25 @@
                     <input type="hidden" name="ads_type" value="{{$ptc->ads_type}}">
 
                     <div class="row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label>@lang('Title')</label>
                             <input type="text" name="title" class="form--control" value="{{__($ptc->title) }}"
                                 placeholder="@lang('Title')" required>
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
+                            <label>@lang('Target Plan')</label>
+                            <select class="form-select select" name="plan_id">
+                                <option value="0">@lang('All Plans / All Users')</option>
+                                @foreach($plans as $plan)
+                                    <option value="{{ $plan->id }}" {{ old('plan_id', $ptc->plan_id) == $plan->id ? 'selected' : '' }}>
+                                        {{ __($plan->name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
                             <label>@lang('Duration')</label>
                             <div class="input-group">
                                 <input type="number" name="duration" class="form-control form--control"
@@ -26,7 +38,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label>@lang('Maximum Show')</label>
                             <div class="input-group">
                                 <input type="number" name="max_show" class="form-control form--control"

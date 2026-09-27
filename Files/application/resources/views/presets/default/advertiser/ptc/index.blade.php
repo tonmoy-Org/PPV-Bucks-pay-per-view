@@ -16,6 +16,7 @@
                             <thead>
                                 <tr>
                                     <th>@lang('Title')</th>
+                                    <th>@lang('Plan')</th>
                                     <th>@lang('Duration')</th>
                                     <th>@lang('Max Show')</th>
                                     <th>@lang('Showed')</th>
@@ -29,6 +30,13 @@
                                 @forelse($ptcs as $ptc)
                                 <tr>
                                     <td  data-label="@lang('Title')">{{__($ptc->title)}}</td>
+                                    <td  data-label="@lang('Plan')">
+                                        @if($ptc->plan)
+                                            <span class="badge badge--primary" style="background-color: #4634ff; color: #ffffff; padding: 6px 12px; font-weight: 600;">{{ __($ptc->plan->name) }}</span>
+                                        @else
+                                            <span class="badge badge--dark" style="background-color: #6c757d; color: #ffffff; padding: 6px 12px; font-weight: 600;">@lang('All Plans')</span>
+                                        @endif
+                                    </td>
                                     <td  data-label="@lang('Duration')">{{$ptc->duration}}@lang('s') </td>
                                     <td  data-label="@lang('Max Show')">{{$ptc->max_show}}</td>
                                     <td  data-label="@lang('Showed')">{{$ptc->showed}}</td>

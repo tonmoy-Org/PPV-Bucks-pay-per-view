@@ -21,7 +21,22 @@ class UserController extends Controller
         $pageTitle = 'Dashboard';
         $user = auth()->user();
         $ptc = PtcView::where('user_id',auth()->user()->id)->get(['view_date','amount']);
-        $data['totalAds'] = Ptc::where('status',1)->where('remain','>',0)->count();
+        $userPlanId = $user->plan_id;
+        if (!$userPlanId) {
+            $freePlan = \App\Models\Plan::where('status', 1)->where('price', 0)->first();
+            if ($freePlan) {
+                $userPlanId = $freePlan->id;
+            }
+        }
+        $data['totalAds'] = Ptc::where('status',1)
+            ->where('remain','>',0)
+            ->where(function($q) use ($userPlanId) {
+                $q->where('plan_id', 0)->orWhereNull('plan_id');
+                if ($userPlanId) {
+                    $q->orWhere('plan_id', $userPlanId);
+                }
+            })
+            ->count();
 
         $chart['click'] = $ptc->groupBy('view_date')->map(function ($item,$key) {
             return collect($item)->count();
